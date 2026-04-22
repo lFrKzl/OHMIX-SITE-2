@@ -1,0 +1,35 @@
+name: Automate Hostinger Build Branch
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Permite que o robô crie a branch hostinger-build!
+
+    steps:
+      - name: Checkout do Código
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar NPM e Compilar Vite
+        run: |
+          npm install
+          npm run build
+
+      - name: Enviar pasta gerada para a branch Hostinger-Build
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: hostinger-build
+          publish_dir: ./dist
+          commit_message: "deploy: ${{ github.sha }}"
+          force_orphan: true
