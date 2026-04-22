@@ -1,12 +1,12 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  RewriteBase /
 
-  # Redireciona tudo invisivelmente para a pasta compilada dist
-  RewriteCond %{REQUEST_URI} !^/dist/
-  RewriteRule ^(.*)$ /dist/$1 [L]
+  # Redireciona a raiz exatamente para o HTML compilado
+  RewriteRule ^$ dist/index.html [L]
 
-  # Se o arquivo nao existir dentro da dist, força abrir o index pro React Router funcionar 
+  # Se tentar acessar arquivos do Vite (ex: assets/app.js) que estao dentro da dist/
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^dist/.*$ /dist/index.html [L]
+  RewriteRule ^(.*)$ dist/$1 [L]
 </IfModule>
