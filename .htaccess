@@ -1,0 +1,12 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Redireciona tudo invisivelmente para a pasta compilada dist
+  RewriteCond %{REQUEST_URI} !^/dist/
+  RewriteRule ^(.*)$ /dist/$1 [L]
+
+  # Se o arquivo nao existir dentro da dist, força abrir o index pro React Router funcionar 
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^dist/.*$ /dist/index.html [L]
+</IfModule>

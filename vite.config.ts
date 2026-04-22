@@ -7,10 +7,6 @@ export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
   return {
     base: './', // Fixes white screen on subfolder/domain hosts by defining relative paths
-    build: {
-      outDir: 'public_html',
-      emptyOutDir: true,
-    },
     plugins: [react(), tailwindcss()],
     define: {
       'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
