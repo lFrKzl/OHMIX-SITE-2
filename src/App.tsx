@@ -8,10 +8,11 @@ import Hero from "./components/Hero";
 import Services from "./components/Services";
 import About from "./components/About";
 import Footer from "./components/Footer";
+import WhatsAppButton from "./components/WhatsAppButton";
 
 export default function App() {
   return (
-    <div className="min-h-screen font-sans bg-white">
+    <div className="min-h-screen font-sans bg-white relative">
       <Header />
       <main>
         <Hero />
@@ -19,6 +20,7 @@ export default function App() {
         <About />
       </main>
       <Footer />
+      <WhatsAppButton />
     </div>
   );
 }
