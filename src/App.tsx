@@ -8,7 +8,6 @@ import Hero from "./components/Hero";
 import Services from "./components/Services";
 import About from "./components/About";
 import Footer from "./components/Footer";
-import WhatsAppButton from "./components/WhatsAppButton";
 
 export default function App() {
   return (
@@ -20,7 +19,6 @@ export default function App() {
         <About />
       </main>
       <Footer />
-      <WhatsAppButton />
     </div>
   );
 }
