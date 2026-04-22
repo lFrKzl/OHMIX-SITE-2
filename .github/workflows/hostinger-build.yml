@@ -32,4 +32,5 @@ jobs:
           publish_branch: hostinger-build
           publish_dir: ./dist
           commit_message: "deploy: ${{ github.sha }}"
-          force_orphan: true
+          force_orphan: false # Mudado de true para false para garantir integridade e tracking
+          keep_files: false # Sobrescrever tudo!
