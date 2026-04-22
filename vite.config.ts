@@ -8,7 +8,7 @@ export default defineConfig(({mode}) => {
   return {
     base: './', // Fixes white screen on subfolder/domain hosts by defining relative paths
     build: {
-      outDir: 'public_html',
+      outDir: 'dist',
       emptyOutDir: true,
     },
     plugins: [react(), tailwindcss()],
