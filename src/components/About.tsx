@@ -115,7 +115,7 @@ export default function About() {
             transition={{ duration: 0.8 }}
             className="flex-1 relative w-full"
           >
-            <div className="relative z-10 w-full max-w-md mx-auto aspect-square flex flex-col items-center justify-center">
+            <div className="relative z-10 w-full max-w-2xl mx-auto flex flex-col items-center justify-center">
               {loading || images.length === 0 ? (
                 <>
                   <img 
@@ -129,7 +129,7 @@ export default function About() {
               ) : (
                 <div 
                   onClick={() => setIsPopoutOpen(true)}
-                  className="relative w-full h-[400px] sm:h-[450px] lg:h-[500px] rounded-2xl overflow-hidden group shadow-2xl ring-1 ring-white/10 p-2 bg-white/5 flex items-center justify-center cursor-pointer hover:ring-dourado/50 transition-all duration-500"
+                  className="relative w-full aspect-[163/100] rounded-2xl overflow-hidden group shadow-2xl ring-1 ring-white/10 p-2 bg-white/5 flex items-center justify-center cursor-pointer hover:ring-dourado/50 transition-all duration-500"
                   title="Clique para ampliar a imagem"
                 >
                   <img 

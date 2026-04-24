@@ -179,7 +179,7 @@ export default function Portfolio() {
                       exit={{ opacity: 0, scale: 0.9 }}
                       key={img.id}
                       onClick={() => setSelectedImage(img.url)}
-                      className="group relative aspect-square rounded-xl overflow-hidden cursor-pointer shadow-sm border border-gray-100 bg-white items-center justify-center flex hover:shadow-xl hover:border-dourado/50 transition-all duration-300"
+                      className="group relative aspect-[163/100] rounded-xl overflow-hidden cursor-pointer shadow-sm border border-gray-100 bg-white items-center justify-center flex hover:shadow-xl hover:border-dourado/50 transition-all duration-300"
                     >
                       <img 
                         src={img.url} 
