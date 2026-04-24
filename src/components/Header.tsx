@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolledPastHero, setIsScrolledPastHero] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,22 +23,50 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (location.pathname === '/' && location.hash) {
+      const targetId = location.hash.substring(1);
+      setTimeout(() => {
+        document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+  }, [location]);
+
   const navItems = [
-    { name: "Início", href: "#inicio" },
-    { name: "Serviços", href: "#servicos" },
-    { name: "Sobre", href: "#sobre" },
-    { name: "Contato", href: "#contato" },
+    { name: "Início", href: "/#inicio", isHash: true },
+    { name: "Serviços", href: "/#servicos", isHash: true },
+    { name: "Sobre", href: "/#sobre", isHash: true },
+    { name: "Contato", href: "/#contato", isHash: true },
+    { name: "Acervo de Obras", href: "/portfolio", isHash: false },
   ];
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, isHash: boolean) => {
+    e.preventDefault();
+    if (isHash) {
+      if (location.pathname === '/') {
+        const targetId = href.replace('/#', '');
+        document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        navigate(href);
+      }
+    } else {
+      navigate(href);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    setIsMobileMenuOpen(false);
+  };
+
+  const showContactButton = location.pathname === '/portfolio' || isScrolledPastHero;
 
   return (
     <header className="bg-azul-escuro border-b-3 border-dourado fixed w-full top-0 z-50 py-4">
       <div className="container mx-auto px-6 flex justify-between items-center max-w-7xl relative">
         <motion.a 
-          href="#inicio"
+          href="/#inicio"
+          onClick={(e: React.MouseEvent<HTMLAnchorElement>) => handleNavClick(e, "/#inicio", true)}
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           className="flex flex-col items-center z-50 relative"
-          onClick={() => setIsMobileMenuOpen(false)}
         >
           <img 
             src="https://drive.google.com/thumbnail?id=1bvEn-NxDoccCBgEjeoNHvuWihM14ar4x&sz=w800" 
@@ -49,7 +80,7 @@ export default function Header() {
         {/* Centralized Action Button */}
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-50">
           <AnimatePresence>
-            {isScrolledPastHero && (
+            {showContactButton && (
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -82,7 +113,8 @@ export default function Header() {
                 >
                   <a 
                     href={item.href} 
-                    className="text-white hover:text-dourado transition-colors font-medium"
+                    onClick={(e) => handleNavClick(e, item.href, item.isHash)}
+                    className="text-white hover:text-dourado transition-colors font-medium whitespace-nowrap"
                   >
                     {item.name}
                   </a>
@@ -122,7 +154,7 @@ export default function Header() {
                 >
                   <a 
                     href={item.href} 
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={(e) => handleNavClick(e, item.href, item.isHash)}
                     className="text-white block hover:text-dourado transition-colors font-medium text-lg"
                   >
                     {item.name}
