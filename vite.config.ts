@@ -11,6 +11,7 @@ export default defineConfig(({mode}) => {
       outDir: 'dist',
       assetsDir: 'assets',
       emptyOutDir: true,
+      sourcemap: false, // Prevents source code mapping exposure in production
     },
     plugins: [react(), tailwindcss()],
     define: {
